@@ -8,22 +8,21 @@ import 'package:hdev/src/features/home/presentation/bloc/contracts_state.dart';
 class HomeContractBloc extends Bloc<HomeContractEvent, HomeContractState> {
   final GetContractsUseCase _getContractsUseCase;
 
-  HomeContractBloc(this._getContractsUseCase) : super(const HomeContractLoading()) {
+  HomeContractBloc(this._getContractsUseCase)
+      : super(const HomeContractLoading()) {
     on<GetContracts>(onGetContracts);
   }
   void onGetContracts(
       GetContracts event, Emitter<HomeContractState> emit) async {
     final dataState = await _getContractsUseCase();
-    print({"you are", dataState});
 
     if (dataState is DataSuccess && dataState.data!.isSuccess) {
-      print(dataState.data?.datas);
-      final a = ContractsModel.fromMap(dataState.data!.datas[0]);
-      print({"a", a.adresseBien});
-      emit(HomeContractDone(a));
+      final contractsModel = ContractsModel.fromMap(dataState.data!.datas[0]);
+      emit(HomeContractDone(contractsModel));
     }
 
     if (dataState is DataFailed) {
+      print({"error", dataState.data?.errors});
       emit(HomeContractError(dataState.data?.errors));
     }
   }

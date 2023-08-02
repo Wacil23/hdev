@@ -5,6 +5,7 @@ import 'package:hdev/src/features/home/data/repositories/get_contracts_repositor
 import 'package:hdev/src/features/home/domain/usecases/get_contracts_usecase.dart';
 import 'package:hdev/src/features/home/presentation/bloc/contracts_bloc.dart';
 import 'package:hdev/src/features/home/presentation/widgets/app_bar/home_app_bar.dart';
+import 'package:hdev/src/features/home/presentation/widgets/body/body.dart';
 import 'package:hdev/src/features/home/presentation/widgets/body/contracts/card_contract_section.dart';
 import 'package:hdev/src/features/home/presentation/widgets/drawer/home_drawer.dart';
 
@@ -17,7 +18,7 @@ class Home extends StatelessWidget {
       create: (context) {
         return HomeContractBloc(GetContractsUseCase(GetContractsRepositoryImpl(currentBailleurId: currentBailleurId)));
       },
-      child: const Scaffold(appBar: HomeAppBar(), body: CardContractSection(), drawer: HomeDrawer(),),
+      child: const Scaffold(appBar: HomeAppBar(), body: HomeBody(), drawer: HomeDrawer(),),
     );
   }
 }

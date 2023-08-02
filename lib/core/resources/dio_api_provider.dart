@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:hdev/core/constants/constants.dart';
 import 'package:hdev/core/localStorage/authentication_storage.dart';
-import 'package:hdev/src/features/login/data/datasources/token_interceptor.dart';
+import 'package:hdev/core/resources/token_interceptor.dart';
 
 class DioApiProvider {
   final Dio _dio;
@@ -9,15 +9,12 @@ class DioApiProvider {
   final bool includeToken;
   final bool includeBailleur;
 
-  DioApiProvider(
-      {required this.currentBailleurId,
-      this.includeToken = false,
-      this.includeBailleur = true})
+  DioApiProvider({required this.currentBailleurId, this.includeToken = false, this.includeBailleur = true})
       : _dio = Dio(BaseOptions(baseUrl: apiBaseUrl)) {
+        
     if (includeToken) {
       final String? token = AuthBox.getToken();
       if (token != null) {
-        print({'PRIIINT2', token});
         _dio.interceptors.add(TokenInterceptor(
             currentBailleurId: currentBailleurId, token: token));
       }

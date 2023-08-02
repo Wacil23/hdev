@@ -1,7 +1,7 @@
 import 'package:hdev/core/constants/constants.dart';
 import 'package:hdev/core/resources/data_state.dart';
 
-import '../datasources/dio_api_provider.dart';
+import '../../../../../core/resources/dio_api_provider.dart';
 import '../models/api_response.dart';
 import '../models/login_params_model.dart';
 

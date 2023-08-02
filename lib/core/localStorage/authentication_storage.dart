@@ -5,7 +5,6 @@ class AuthBox {
   static Box<String>? _box;
   static Future<void> initialize() async {
     _box = await Hive.openBox<String>(_boxName); // Open the box
-    print('AuthBox initialized: $_box');
   }
 
   static String? getToken() {

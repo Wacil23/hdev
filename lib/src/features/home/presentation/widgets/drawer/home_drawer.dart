@@ -20,6 +20,7 @@ class HomeDrawer extends StatelessWidget {
           backgroundColor: const Color.fromRGBO(20, 76, 151, 1),
           elevation: 3,
           child: ListView(
+            
             children: [
               DrawerHeader(
                 padding: const EdgeInsets.only(top: 40),
@@ -48,24 +49,24 @@ class HomeDrawer extends StatelessWidget {
                   // Gérer l'action lorsqu'une option du Drawer est sélectionnée
                 },
               ),
-              Container(
-                // Utilisez la propriété 'width' pour définir la largeur du bouton de déconnexion
-                width: double
-                    .infinity, // La largeur du bouton prend toute la largeur du conteneur
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: ElevatedButton.icon(
-                    style: ButtonStyle(
-                      iconSize: MaterialStateProperty.all(23),
-                      padding: MaterialStateProperty.all(
-                        const EdgeInsets.symmetric(vertical: 13),
-                      ),
-                      backgroundColor: MaterialStateColor.resolveWith((states) => Colors.redAccent)
-                    ),
-                    onPressed: () {
-                      AuthBox.removeToken();
-                    },
-                    icon: const Icon(Icons.logout_rounded),
-                    label: const Text('Déconnexion')),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  ElevatedButton.icon(
+                      style: ButtonStyle(
+                          iconSize: MaterialStateProperty.all(23),
+                          padding: MaterialStateProperty.all(
+                            const EdgeInsets.symmetric(vertical: 13),
+                          ),
+                          backgroundColor: MaterialStateColor.resolveWith(
+                              (states) => Colors.redAccent)),
+                      onPressed: () {
+                        AuthBox.removeToken();
+                        Navigator.pushReplacementNamed(context, '/login');
+                      },
+                      icon: const Icon(Icons.logout_rounded),
+                      label: const Text('Déconnexion'))
+                ],
               ),
             ],
           ),

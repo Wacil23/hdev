@@ -1,20 +1,18 @@
-import 'package:hdev/core/constants/constants.dart';
 import 'package:hdev/core/resources/data_state.dart';
-import 'package:hdev/src/features/login/data/datasources/dio_api_provider.dart';
+import 'package:hdev/core/resources/dio_api_provider.dart';
 import 'package:hdev/src/features/login/data/models/api_response.dart';
 
 class GetContractsRepositoryImpl {
   final DioApiProvider _apiProvider;
 
-  GetContractsRepositoryImpl({required String currentBailleurId})
+  GetContractsRepositoryImpl({String? currentBailleurId})
       : _apiProvider = DioApiProvider(
-            currentBailleurId: currentBailleurId,
+            currentBailleurId: currentBailleurId!,
             includeBailleur: true,
             includeToken: true);
 
   Future<DataState<ApiResponseModel>> getContracts() async {
     try {
-    print({"bailleur": currentBailleurId});
       final httpResponse =
           await _apiProvider.get('/Contrats/188154');
       final responseModel = ApiResponseModel(
@@ -27,8 +25,7 @@ class GetContractsRepositoryImpl {
       if (responseModel.isSuccess) {
         return DataSuccess(ApiResponseModel(isSuccess: responseModel.isSuccess, statusCode: responseModel.statusCode, datas: responseModel.datas));
       } else {
-        print({"voici l'errur ": responseModel});
-        return DataFailed(responseModel);
+        return DataFailed(ApiResponseModel(isSuccess: responseModel.isSuccess, statusCode: responseModel.statusCode, errors: responseModel.errors));
       }
     } on ApiResponseModel catch (e) {
       return e.errors;

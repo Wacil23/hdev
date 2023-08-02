@@ -1,12 +1,10 @@
-import 'package:hdev/src/features/login/data/models/token_model.dart';
-
 class UserModel {
   final int idTenant;
   final String numTenant;
   final String email;
   final String idAccount;
   final String completeName;
-  final TokenModel token;
+  final String token;
   final dynamic contract;
   final dynamic phone;
 

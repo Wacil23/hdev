@@ -6,7 +6,8 @@ import 'package:hdev/src/features/home/presentation/bloc/contracts_event.dart';
 import 'package:hdev/src/features/home/presentation/bloc/contracts_state.dart';
 
 class CardContractSection extends StatelessWidget {
-  const CardContractSection({super.key});
+  final String title;
+  const CardContractSection({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -15,61 +16,38 @@ class CardContractSection extends StatelessWidget {
     return BlocBuilder<HomeContractBloc, HomeContractState>(
       builder: (_, state) {
         if (state is HomeContractLoading) {
-          print(state.contracts);
           return const Center(child: CupertinoActivityIndicator());
         }
         if (state is HomeContractError) {
           return const Center(child: Icon(Icons.refresh));
         }
         if (state is HomeContractDone) {
-          return ListView(
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(
-                      height: 50.0,
+              _headerCardSection(title),
+              const SizedBox(
+                height: 10,
+              ),
+              GestureDetector(
+                onTap: () {
+                  print({'Card cliqued'});
+                },
+                child: Card(
+                  elevation: 2,
+                  clipBehavior: Clip.hardEdge,
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      children: [
+                        _cardHeader(state),
+                        const SizedBox(height: 20),
+                        _cardMain(state),
+                        const SizedBox(height: 15),
+                        _cardPayment(state),
+                      ],
                     ),
-                    const Text(
-                      'Mes contrats',
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(
-                      height: 10.0,
-                      width: 55,
-                      child: Divider(
-                        color: Colors.amber,
-                        thickness: 3,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        print({'Card cliqued'});
-                      },
-                      child: Card(
-                        elevation: 2,
-                        clipBehavior: Clip.hardEdge,
-                        child: Padding(
-                          padding: const EdgeInsets.all(20.0),
-                          child: Column(
-                            children: [
-                              _cardHeader(state),
-                              const SizedBox(height: 20),
-                              _cardMain(state),
-                              const SizedBox(height: 15),
-                              _cardPayment(state),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
             ],
@@ -184,4 +162,27 @@ class CardContractSection extends StatelessWidget {
       ],
     );
   }
+}
+
+Column _headerCardSection(title) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      const SizedBox(
+        height: 80.0,
+      ),
+      Text(
+        title,
+        style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+      ),
+      const SizedBox(
+        height: 10.0,
+        width: 55,
+        child: Divider(
+          color: Colors.amber,
+          thickness: 3,
+        ),
+      ),
+    ],
+  );
 }

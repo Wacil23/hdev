@@ -23,7 +23,7 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(bottom: Radius.circular(10)),
+        borderRadius: BorderRadius.vertical(bottom: Radius.circular(1)),
       ),
       leading: Padding(
         padding: const EdgeInsets.only(left: 30.0, top: 20),

@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:hdev/src/features/login/data/jwt/decode_token.dart';
 
 class TokenInterceptor extends Interceptor {
   final String currentBailleurId;
@@ -15,8 +14,8 @@ class TokenInterceptor extends Interceptor {
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    if (token != null && !isTokenExpired(token!)) {
-      print({'token is': token});
+    
+    if (token != null) {
       options.headers['Authorization'] = 'Bearer $token';
     }
     if (includeBailleur) {
@@ -24,10 +23,5 @@ class TokenInterceptor extends Interceptor {
     }
     options.headers['Content-Type'] = "application/json";
     super.onRequest(options, handler);
-  }
-
-  bool isTokenExpired(String token) {
-    final decodedToken = parseJwtPayLoad(token);
-    return DateTime.now().isAfter(decodedToken.expirationDate);
   }
 }

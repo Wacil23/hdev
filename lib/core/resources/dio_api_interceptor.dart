@@ -1,12 +1,12 @@
 import 'package:dio/dio.dart';
 
-class TokenInterceptor extends Interceptor {
+class DioApiInterceptor extends Interceptor {
   final String currentBailleurId;
   final bool includeToken;
   final String? token;
   final bool includeBailleur;
 
-  TokenInterceptor(
+  DioApiInterceptor(
       {required this.currentBailleurId,
       this.includeToken = false,
       this.includeBailleur = true,

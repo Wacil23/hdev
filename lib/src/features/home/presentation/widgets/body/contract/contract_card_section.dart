@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hdev/src/features/home/presentation/bloc/contracts_bloc.dart';
-import 'package:hdev/src/features/home/presentation/bloc/contracts_event.dart';
-import 'package:hdev/src/features/home/presentation/bloc/contracts_state.dart';
+import 'package:hdev/src/features/home/presentation/bloc/contracts/contracts_bloc.dart';
+import 'package:hdev/src/features/home/presentation/bloc/contracts/contracts_event.dart';
+import 'package:hdev/src/features/home/presentation/bloc/contracts/contracts_state.dart';
+import 'package:hdev/src/features/home/presentation/widgets/body/header/header_section.dart';
 
 class CardContractSection extends StatelessWidget {
   final String title;
@@ -13,48 +14,54 @@ class CardContractSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final homeContractBloc = BlocProvider.of<HomeContractBloc>(context);
     homeContractBloc.add(const GetContracts());
-    return BlocBuilder<HomeContractBloc, HomeContractState>(
-      builder: (_, state) {
-        if (state is HomeContractLoading) {
-          return const Center(child: CupertinoActivityIndicator());
-        }
-        if (state is HomeContractError) {
-          return const Center(child: Icon(Icons.refresh));
-        }
-        if (state is HomeContractDone) {
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              _headerCardSection(title),
-              const SizedBox(
-                height: 10,
-              ),
-              GestureDetector(
-                onTap: () {
-                  print({'Card cliqued'});
-                },
-                child: Card(
-                  elevation: 2,
-                  clipBehavior: Clip.hardEdge,
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      children: [
-                        _cardHeader(state),
-                        const SizedBox(height: 20),
-                        _cardMain(state),
-                        const SizedBox(height: 15),
-                        _cardPayment(state),
-                      ],
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        HeaderSection(
+          title: title,
+          dividerColor: Colors.amber,
+        ),
+        BlocBuilder<HomeContractBloc, HomeContractState>(
+          builder: (_, state) {
+            if (state is HomeContractLoading) {
+              return const Center(child: CupertinoActivityIndicator());
+            }
+            if (state is HomeContractError) {
+              return const Center(child: Icon(Icons.refresh));
+            }
+            if (state is HomeContractDone) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  GestureDetector(
+                    onTap: () {},
+                    child: Card(
+                      elevation: 2,
+                      clipBehavior: Clip.hardEdge,
+                      child: Padding(
+                        padding: const EdgeInsets.all(20.0),
+                        child: Column(
+                          children: [
+                            _cardHeader(state),
+                            const SizedBox(height: 20),
+                            _cardMain(state),
+                            const SizedBox(height: 15),
+                            _cardPayment(state),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ),
-            ],
-          );
-        }
-        return const SizedBox();
-      },
+                ],
+              );
+            }
+            return const SizedBox();
+          },
+        ),
+      ],
     );
   }
 
@@ -65,32 +72,33 @@ class CardContractSection extends StatelessWidget {
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             const Row(
               children: [
-                Text('Solde',
+                Text('Solde :',
                     style:
-                        TextStyle(fontSize: 19, fontWeight: FontWeight.bold)),
+                        TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
               ],
             ),
             Row(
               children: [
                 Text('$priceToString €',
                     style: const TextStyle(
-                        fontSize: 19, fontWeight: FontWeight.bold)),
+                        fontSize: 23, fontWeight: FontWeight.bold)),
               ],
             ),
           ],
         ),
         const SizedBox(
-          height: 5,
+          height: 2,
         ),
         const Text(
           'sous réserve de paiements en cours de traitement',
           style: TextStyle(
               color: Color.fromRGBO(102, 102, 118, 1),
-              fontStyle: FontStyle.italic),
+              fontStyle: FontStyle.italic,
+              fontSize: 13),
         ),
       ],
     );
@@ -111,7 +119,10 @@ class CardContractSection extends StatelessWidget {
               padding: EdgeInsets.only(right: 5.0),
               child: Icon(Icons.file_copy, color: Colors.amber),
             ),
-            Text(state.contracts!.numContrat),
+            Text(
+              state.contracts!.numContrat,
+              style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+            ),
           ],
         ),
         Row(
@@ -121,11 +132,13 @@ class CardContractSection extends StatelessWidget {
               children: [
                 Text(
                   state.contracts!.adresseBien,
-                  style: const TextStyle(fontWeight: FontWeight.w600),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.w500, fontSize: 13),
                 ),
                 Text(
                   postalCodeNCity,
-                  style: const TextStyle(fontWeight: FontWeight.w600),
+                  style: const TextStyle(
+                      fontWeight: FontWeight.w500, fontSize: 13),
                 ),
               ],
             ),
@@ -146,12 +159,10 @@ class CardContractSection extends StatelessWidget {
               child: Row(
                 children: [
                   ElevatedButton(
-                    onPressed: () {
-                      print({' paiement effectuer'});
-                    },
+                    onPressed: () {},
                     style: const ButtonStyle(
                         backgroundColor: MaterialStatePropertyAll(
-                            Color.fromRGBO(20, 76, 151, 1))),
+                            Color.fromRGBO(126, 161, 26, 1))),
                     child: const Text('Effectuer un paiement'),
                   ),
                 ],
@@ -162,27 +173,4 @@ class CardContractSection extends StatelessWidget {
       ],
     );
   }
-}
-
-Column _headerCardSection(title) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      const SizedBox(
-        height: 80.0,
-      ),
-      Text(
-        title,
-        style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-      ),
-      const SizedBox(
-        height: 10.0,
-        width: 55,
-        child: Divider(
-          color: Colors.amber,
-          thickness: 3,
-        ),
-      ),
-    ],
-  );
 }

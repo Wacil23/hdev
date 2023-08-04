@@ -75,7 +75,6 @@ class FormLogin extends StatelessWidget {
   }
 
   ElevatedButton _buildLoginButton(BuildContext context) {
-    print({'Hello', emailController.text});
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: const Color.fromRGBO(126, 161, 21, 1),

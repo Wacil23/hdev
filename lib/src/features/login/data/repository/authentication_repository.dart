@@ -2,7 +2,7 @@ import 'package:hdev/core/constants/constants.dart';
 import 'package:hdev/core/resources/data_state.dart';
 
 import '../../../../../core/resources/dio_api_provider.dart';
-import '../models/api_response.dart';
+import '../../../../../core/model/api_response.dart';
 import '../models/login_params_model.dart';
 
 class AuthenticationRepositoryImpl {
@@ -13,9 +13,12 @@ class AuthenticationRepositoryImpl {
             currentBailleurId: currentBailleurId,
             includeBailleur: true,
             includeToken: false);
+
+
   Future<DataState<ApiResponseModel>> login(
       {String? email, String? password}) async {
     try {
+      
       final loginParams = LoginParams(email: email, password: password);
 
       final httpResponse = await _apiProvider.post(
@@ -28,21 +31,23 @@ class AuthenticationRepositoryImpl {
           isSuccess: httpResponse["IsSuccess"],
           statusCode: httpResponse["StatusCode"],
           errors: httpResponse["Errors"]);
-          
+
       if (responseModel.isSuccess) {
         return DataSuccess(ApiResponseModel(
             datas: responseModel.datas,
             isSuccess: responseModel.isSuccess,
             statusCode: responseModel.statusCode));
       } else {
-        return DataFailed(ApiResponseModel(
-            errors: responseModel.errors[0],
-            isSuccess: responseModel.isSuccess,
-            statusCode: responseModel.statusCode));
+        return DataFailed(
+          ApiResponseModel(
+              errors: responseModel.errors[0],
+              isSuccess: responseModel.isSuccess,
+              statusCode: responseModel.statusCode),
+        );
       }
     } on ApiResponseModel catch (e) {
       return DataFailed(ApiResponseModel(
-          isSuccess: e.isSuccess, statusCode: e.statusCode, errors: e.errors));
+          isSuccess: e.isSuccess, statusCode: e.statusCode, errors: e));
     }
   }
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const HomeAppBar({super.key});
+  final bool needsPop;
+  final String title;
+  const HomeAppBar({super.key, required this.needsPop, required this.title});
 
   @override
   Size get preferredSize => const Size.fromHeight(80);
@@ -11,11 +13,11 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       backgroundColor: const Color.fromRGBO(20, 76, 151, 1),
       centerTitle: true,
-      title: const Padding(
-        padding: EdgeInsets.only(top: 20.0),
+      title: Padding(
+        padding: const EdgeInsets.only(top: 20.0),
         child: Text(
-          'Espace locataire',
-          style: TextStyle(
+          title,
+          style: const TextStyle(
             fontSize: 18,
             color: Colors.white,
             letterSpacing: 0,
@@ -30,12 +32,17 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
         child: Center(
           child: InkWell(
             onTap: () {
+              if(needsPop){
+                Navigator.popAndPushNamed(context, '/');
+              }else {
               Scaffold.of(context).openDrawer();
+              }
             },
-            child: const Icon(Icons.subject_rounded),
+            child: needsPop ? const Icon(Icons.arrow_back) :  const Icon(Icons.subject_rounded),
           ),
         ),
       ),
+
     );
   }
 }

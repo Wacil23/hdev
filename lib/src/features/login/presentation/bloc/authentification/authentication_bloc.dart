@@ -20,9 +20,10 @@ class AuthenticationBloc
       Emitter<AuthenticationState> emit) async {
     if (event.email.isNotEmpty || event.password.isNotEmpty) {
       emit(const AuthenticationLoadingState());
+
       final loginParams =
           LoginParams(email: event.email, password: event.password);
-      
+
       final loginResult = await _loginUseCase(params: loginParams);
 
       if (loginResult is DataSuccess && loginResult.data != null) {
@@ -31,6 +32,8 @@ class AuthenticationBloc
       }
 
       if (loginResult is DataFailed) {
+        print(401);
+        AuthBox.removeToken();
         emit(AuthenticationUnauthenticatedState(loginResult.error));
       }
     } else {

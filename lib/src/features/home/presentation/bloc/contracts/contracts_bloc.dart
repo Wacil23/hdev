@@ -1,9 +1,10 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hdev/core/resources/data_state.dart';
 import 'package:hdev/src/features/home/data/models/contracts_model.dart';
 import 'package:hdev/src/features/home/domain/usecases/get_contracts_usecase.dart';
-import 'package:hdev/src/features/home/presentation/bloc/contracts_event.dart';
-import 'package:hdev/src/features/home/presentation/bloc/contracts_state.dart';
+import 'package:hdev/src/features/home/presentation/bloc/contracts/contracts_event.dart';
+import 'package:hdev/src/features/home/presentation/bloc/contracts/contracts_state.dart';
+
 
 class HomeContractBloc extends Bloc<HomeContractEvent, HomeContractState> {
   final GetContractsUseCase _getContractsUseCase;
@@ -22,7 +23,6 @@ class HomeContractBloc extends Bloc<HomeContractEvent, HomeContractState> {
     }
 
     if (dataState is DataFailed) {
-      print({"error", dataState.data?.errors});
       emit(HomeContractError(dataState.data?.errors));
     }
   }

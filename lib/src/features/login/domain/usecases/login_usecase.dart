@@ -1,6 +1,6 @@
 import 'package:hdev/core/resources/data_state.dart';
 import 'package:hdev/core/usecases/usecase.dart';
-import 'package:hdev/src/features/login/data/models/api_response.dart';
+import 'package:hdev/core/model/api_response.dart';
 import 'package:hdev/src/features/login/data/models/login_params_model.dart';
 import 'package:hdev/src/features/login/data/repository/authentication_repository.dart';
 

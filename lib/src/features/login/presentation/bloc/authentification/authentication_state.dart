@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:hdev/src/features/login/data/models/api_response.dart';
+import 'package:hdev/core/model/api_response.dart';
 
 abstract class AuthenticationState extends Equatable {
   final ApiResponseModel? responseModel;

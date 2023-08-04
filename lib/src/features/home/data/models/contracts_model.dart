@@ -38,7 +38,6 @@ class ContractsModel {
 
        factory ContractsModel.fromMap(Map<String, dynamic> map) {
     return ContractsModel(
-      // Récupérez les valeurs de la map et initialisez votre modèle
       codeBailleur: map['CodeBailleur'],
       numLocataire: map['NumLocataire'],
       nomLocataire: map['NomLocataire'],

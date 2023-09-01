@@ -5,7 +5,6 @@ import 'package:hdev/src/features/home/domain/usecases/get_contracts_usecase.dar
 import 'package:hdev/src/features/home/presentation/bloc/contracts/contracts_event.dart';
 import 'package:hdev/src/features/home/presentation/bloc/contracts/contracts_state.dart';
 
-
 class HomeContractBloc extends Bloc<HomeContractEvent, HomeContractState> {
   final GetContractsUseCase _getContractsUseCase;
 
@@ -23,7 +22,7 @@ class HomeContractBloc extends Bloc<HomeContractEvent, HomeContractState> {
     }
 
     if (dataState is DataFailed) {
-      emit(HomeContractError(dataState.data?.errors));
+      emit(HomeContractError(dataState.error));
     }
   }
 }

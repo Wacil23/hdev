@@ -4,7 +4,6 @@ import 'package:hdev/core/constants/constants.dart';
 import 'package:hdev/src/features/home/data/repositories/get_actuality_repository_impl.dart';
 import 'package:hdev/src/features/home/domain/usecases/get_actuality_usecase.dart';
 import 'package:hdev/src/features/home/presentation/bloc/actuality/actuality_bloc.dart';
-import 'package:hdev/src/features/home/presentation/bloc/actuality/actuality_state.dart';
 import 'package:hdev/src/features/home/presentation/widgets/body/actuality/actuality_card_section.dart';
 import 'package:hdev/src/features/home/presentation/widgets/body/contract/contract_card_section.dart';
 

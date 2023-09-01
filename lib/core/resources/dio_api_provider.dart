@@ -5,16 +5,17 @@ import 'package:hdev/core/resources/dio_api_interceptor.dart';
 
 class DioApiProvider {
   final Dio _dio;
-  final String currentBailleurId;
+  final String? currentBailleurId;
   final bool includeToken;
   final bool includeBailleur;
-
+  final bool overrideUrl;
   DioApiProvider(
-      {required this.currentBailleurId,
+      {this.currentBailleurId,
       this.includeToken = false,
-      this.includeBailleur = true})
-      : _dio = Dio(BaseOptions(baseUrl: apiBaseUrl)) {
-        
+      this.includeBailleur = true,
+      this.overrideUrl = false})
+      : _dio = Dio(
+            BaseOptions(baseUrl: overrideUrl ? apiAuthPicture : apiBaseUrl)) {
     if (includeToken) {
       final String? token = AuthBox.getToken();
       if (token != null) {
@@ -44,7 +45,8 @@ class DioApiProvider {
   Future<Map<String, dynamic>> post(String pathUrl,
       {dynamic data,
       Map<String, dynamic>? queryParams,
-      Options? options}) async {
+      Options? options,
+      }) async {
     Response response = await _dio.post(pathUrl,
         data: data, queryParameters: queryParams, options: options);
     return response.data;

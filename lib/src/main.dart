@@ -16,16 +16,18 @@ Future<void> main() async {
   await Hive.initFlutter();
   await AuthBox.initialize();
   final String? authToken = AuthBox.getToken();
+  final String? authFileToken = AuthBox.getFileToken();
+  print({'Token': authToken});
+  print({'TokenFile': authFileToken});
+  
   SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(statusBarColor: Colors.transparent)
-  );
+      const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
   runApp(MyApp(authToken: authToken));
 }
 
 class MyApp extends StatelessWidget {
   final AppRouter _appRouter;
   final String? authToken;
-
   MyApp({Key? key, required this.authToken})
       : _appRouter = AppRouter(authToken),
         super(key: key);

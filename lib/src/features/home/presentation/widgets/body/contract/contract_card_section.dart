@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hdev/src/features/home/presentation/bloc/contracts/contracts_bloc.dart';
@@ -24,10 +23,47 @@ class CardContractSection extends StatelessWidget {
         BlocBuilder<HomeContractBloc, HomeContractState>(
           builder: (_, state) {
             if (state is HomeContractLoading) {
-              return const Center(child: CupertinoActivityIndicator());
+              return Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: Container(
+                  width: double.infinity,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 50),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: const Color.fromARGB(255, 242, 242, 242)),
+                  child: Column(
+                    children: [
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(5.0),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(2),
+                            color: const Color.fromARGB(255, 230, 230, 230)),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(5.0),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(2),
+                            color: const Color.fromARGB(255, 225, 225, 225)),
+                      ),
+                    ],
+                  ),
+                ),
+              );
             }
             if (state is HomeContractError) {
-              return const Center(child: Icon(Icons.refresh));
+              return Padding(
+                padding: const EdgeInsets.only(top: 8.0),
+                child: Text(
+                  state.errors?.errors[0],
+                  style: const TextStyle(color: Colors.red),
+                ),
+              );
             }
             if (state is HomeContractDone) {
               return Column(

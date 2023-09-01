@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final bool needsPop;
+  final bool showTab;
   final String title;
-  const HomeAppBar({super.key, required this.needsPop, required this.title});
+  const HomeAppBar({super.key, required this.showTab, required this.title});
 
   @override
-  Size get preferredSize => const Size.fromHeight(80);
+  Size get preferredSize =>
+      showTab ? const Size.fromHeight(130) : const Size.fromHeight(80);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor: const Color.fromRGBO(20, 76, 151, 1),
+
       centerTitle: true,
       title: Padding(
         padding: const EdgeInsets.only(top: 20.0),
@@ -32,17 +34,50 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
         child: Center(
           child: InkWell(
             onTap: () {
-              if(needsPop){
-                Navigator.popAndPushNamed(context, '/');
-              }else {
               Scaffold.of(context).openDrawer();
-              }
             },
-            child: needsPop ? const Icon(Icons.arrow_back) :  const Icon(Icons.subject_rounded),
+            child: const Icon(Icons.subject_rounded),
           ),
         ),
       ),
-
+      
+      bottom: showTab
+          ? TabBar(
+              tabs: const [
+                 Tab(
+                   child: Text('Mon solde', style: TextStyle(fontSize: 16),)
+                  
+                  
+                ),
+                Tab(
+                   child: Text('Mes informations', style: TextStyle(fontSize: 16),)
+                  
+                ),
+                Tab(
+                   child: Text('Mes modalités de paiement', style: TextStyle(fontSize: 16),)
+                  
+                ),
+                Tab(
+                   child: Text('Mes documents', style: TextStyle(fontSize: 16),)
+                  
+                ),
+                Tab(
+                  child: Text('Mes avis d\'échéance', style: TextStyle(fontSize: 16),)
+                ),
+                Tab(
+                   child: Text('Mes demandes d\'intervention', style: TextStyle(fontSize: 16),)
+                  
+                ),
+              ],
+              isScrollable: true,
+              unselectedLabelColor: Colors.white.withOpacity(0.4),
+              indicator: const BoxDecoration(
+               border: Border(
+                  bottom: BorderSide(width: 2.0, color: Colors.white),
+                ),
+              ),
+            )
+          : null,
     );
   }
 }

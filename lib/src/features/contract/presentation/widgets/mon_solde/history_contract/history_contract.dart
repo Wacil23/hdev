@@ -1,13 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hdev/core/constants/constants.dart';
 import 'package:hdev/src/features/contract/data/repositories/get_contract_history_impl.dart';
 import 'package:hdev/src/features/contract/domain/usecases/get_contract_history_usecase.dart';
-import 'package:hdev/src/features/contract/presentation/bloc/contract_history_bloc.dart';
+import 'package:hdev/src/features/contract/presentation/bloc/history/contract_history_bloc.dart';
 import 'package:hdev/src/features/home/data/models/contracts_model.dart';
-import 'package:intl/intl.dart';
 
 class HistoryContract extends StatelessWidget {
   const HistoryContract({
@@ -30,9 +28,11 @@ class HistoryContract extends StatelessWidget {
       },
       child: BlocBuilder<ContractHistoryBloc, ContractHistoryState>(
         builder: (context, state) {
+
           if(state is ContractHistoryLoading){
             return const CupertinoActivityIndicator();
           }
+
           if (state is ContractHistoryDone) {
             return ListView.builder(
               physics: const ClampingScrollPhysics(),
@@ -55,7 +55,7 @@ class HistoryContract extends StatelessWidget {
                         builder: (context) {
                           return AlertDialog(
                             content: Hero(
-                              tag: 'label-${contractItem!.operationLabel}',
+                              tag: 'label-${contractItem.operationLabel}',
                               child: Text(contractItem.operationLabel),
                             ),
                           );
@@ -79,7 +79,7 @@ class HistoryContract extends StatelessWidget {
                             Hero(
                               tag: 'label-${contractItem!.operationLabel}',
                               child: Text(
-                                contractItem!.operationLabel,
+                                contractItem.operationLabel,
                                 style: const TextStyle(fontSize: 13),
                                 overflow: TextOverflow.ellipsis,
                               ),
@@ -97,7 +97,7 @@ class HistoryContract extends StatelessWidget {
               },
             );
           }
-          return Text('nono');
+          return const Text('nono');
         },
       ),
     );

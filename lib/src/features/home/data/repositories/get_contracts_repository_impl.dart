@@ -16,29 +16,34 @@ class GetContractsRepositoryImpl {
 
   Future<DataState<ApiResponseModel>> getContracts() async {
     try {
-      final httpResponse =
-          await _apiProvider.get('/Contrats/188154');
+      final httpResponse = await _apiProvider.get('/Contrats/188154');
       final responseModel = ApiResponseModel(
         isSuccess: httpResponse["IsSuccess"],
         statusCode: httpResponse["StatusCode"],
         datas: httpResponse["Datas"],
         errors: httpResponse["Errors"],
       );
-      
+
       if (responseModel.isSuccess) {
-        return DataSuccess(ApiResponseModel(isSuccess: responseModel.isSuccess, statusCode: responseModel.statusCode, datas: responseModel.datas));
+        return DataSuccess(ApiResponseModel(
+            isSuccess: responseModel.isSuccess,
+            statusCode: responseModel.statusCode,
+            datas: responseModel.datas));
       } else {
-        print(responseModel.statusCode);
-        return DataFailed(ApiResponseModel(isSuccess: responseModel.isSuccess, statusCode: responseModel.statusCode, errors: responseModel.errors));
-        
+        return DataFailed(ApiResponseModel(
+            isSuccess: responseModel.isSuccess,
+            statusCode: responseModel.statusCode,
+            errors: responseModel.errors));
       }
     } on DioException catch (e) {
-      if(e.response!.statusCode == 401){
-        print(401);
+      if (e.response!.statusCode == 401) {
         AuthBox.removeToken();
         Navigator.defaultRouteName;
       }
-      return DataFailed(ApiResponseModel(errors: e.error, statusCode: e.response!.statusCode!, isSuccess: false));
+      return DataFailed(ApiResponseModel(
+          errors: e.error,
+          statusCode: e.response!.statusCode!,
+          isSuccess: false));
     }
   }
 }

@@ -22,18 +22,15 @@ class ContractHistoryBloc extends Bloc<ContractEvent, ContractHistoryState> {
     final dataState = await _getContractHistoryUseCase(params: contractModel);
 
     if (dataState is DataSuccess && dataState.data!.isSuccess) {
-      print(dataState.data!.datas);
       final List<ContractHistoryModel> contractHistoryList = [];
       for (final mapEntry in dataState.data!.datas) {
-      final contractHistoryModel = ContractHistoryModel.fromMap(mapEntry);
-      contractHistoryList.add(contractHistoryModel);
-    }
-    emit(ContractHistoryDone(contractHistoryList));
-
+        final contractHistoryModel = ContractHistoryModel.fromMap(mapEntry);
+        contractHistoryList.add(contractHistoryModel);
+      }
+      emit(ContractHistoryDone(contractHistoryList));
     }
 
     if (dataState is DataFailed) {
-      print({'There is a problem', dataState});
       emit(ContractHistoryError(dataState.data?.errors));
     }
   }

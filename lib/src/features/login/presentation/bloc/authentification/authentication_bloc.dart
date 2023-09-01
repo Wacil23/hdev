@@ -18,7 +18,7 @@ class AuthenticationBloc
 
   Future<void> onLoginUser(AuthenticationSubmitEvent event,
       Emitter<AuthenticationState> emit) async {
-    if (event.email.isNotEmpty || event.password.isNotEmpty) {
+    if (event.email.isNotEmpty && event.password.isNotEmpty) {
       emit(const AuthenticationLoadingState());
 
       final loginParams =
@@ -32,7 +32,6 @@ class AuthenticationBloc
       }
 
       if (loginResult is DataFailed) {
-        print(401);
         AuthBox.removeToken();
         emit(AuthenticationUnauthenticatedState(loginResult.error));
       }

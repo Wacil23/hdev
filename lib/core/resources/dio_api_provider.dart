@@ -9,6 +9,7 @@ class DioApiProvider {
   final bool includeToken;
   final bool includeBailleur;
   final bool overrideUrl;
+
   DioApiProvider(
       {this.currentBailleurId,
       this.includeToken = false,
@@ -42,11 +43,12 @@ class DioApiProvider {
     return response.data;
   }
 
-  Future<Map<String, dynamic>> post(String pathUrl,
-      {dynamic data,
-      Map<String, dynamic>? queryParams,
-      Options? options,
-      }) async {
+  Future<Map<String, dynamic>> post(
+    String pathUrl, {
+    dynamic data,
+    Map<String, dynamic>? queryParams,
+    Options? options,
+  }) async {
     Response response = await _dio.post(pathUrl,
         data: data, queryParameters: queryParams, options: options);
     return response.data;

@@ -13,7 +13,8 @@ class CardContractSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final homeContractBloc = BlocProvider.of<HomeContractBloc>(context);
     homeContractBloc.add(const GetContracts());
-    return Column(
+    return Container(
+      child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         HeaderSection(
@@ -98,7 +99,7 @@ class CardContractSection extends StatelessWidget {
           },
         ),
       ],
-    );
+    ));
   }
 
   Column _cardMain(HomeContractState state) {

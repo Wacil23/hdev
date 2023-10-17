@@ -28,9 +28,39 @@ class HistoryContract extends StatelessWidget {
       },
       child: BlocBuilder<ContractHistoryBloc, ContractHistoryState>(
         builder: (context, state) {
-
-          if(state is ContractHistoryLoading){
-            return const CupertinoActivityIndicator();
+          if (state is ContractHistoryLoading) {
+            return Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: Container(
+                width: double.infinity,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 50),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    color: const Color.fromARGB(255, 242, 242, 242)),
+                child: Column(
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(5.0),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(2),
+                          color: const Color.fromARGB(255, 230, 230, 230)),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(5.0),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(2),
+                          color: const Color.fromARGB(255, 225, 225, 225)),
+                    ),
+                  ],
+                ),
+              ),
+            );
           }
 
           if (state is ContractHistoryDone) {
@@ -97,7 +127,7 @@ class HistoryContract extends StatelessWidget {
               },
             );
           }
-          return const Text('nono');
+          return const Text('');
         },
       ),
     );

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:hdev/src/features/contract/presentation/widgets/mes_avis_decheance/mes_avis_decheance.dart';
+import 'package:hdev/src/features/contract/presentation/widgets/mes_demandes_dintervention/mes_demandes_dintervention.dart';
+import 'package:hdev/src/features/contract/presentation/widgets/mes_documents/mes_documents.dart';
 import 'package:hdev/src/features/contract/presentation/widgets/mes_informations/mes_informations.dart';
+import 'package:hdev/src/features/contract/presentation/widgets/mes_modalites_de_paiement/mes_modalites_de_paiement.dart';
 import 'package:hdev/src/features/contract/presentation/widgets/mon_solde/mon_solde.dart';
 import 'package:hdev/src/features/home/data/models/contracts_model.dart';
-import 'package:hdev/src/features/home/presentation/widgets/app_bar/home_app_bar.dart';
-import 'package:hdev/src/features/home/presentation/widgets/drawer/home_drawer.dart';
 
 class Contract extends StatelessWidget {
   final ContractsModel? contract;
@@ -11,24 +13,23 @@ class Contract extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 6,
-      child: Scaffold(
-        appBar: HomeAppBar(
-            title: 'Contrat n° ${contract?.numContrat}', showTab: true),
-        body: TabBarView(
-          children: [
-            MonSolde(contract: contract),
-             MesInformations(),
-            const Icon(Icons.directions_bike),
-            const Icon(Icons.directions_bike),
-            const Icon(Icons.directions_bike),
-            const Icon(Icons.directions_bike),
-          ],
-        ),
-        drawer: const HomeDrawer(),
-      ),
-    );
+    return Scaffold(
+        backgroundColor: Colors.blue,
+        body: Center(
+          child: Hero(
+            tag: 'Profile',
+            child: Container(
+              decoration: const BoxDecoration(
+                  color: Colors.white, shape: BoxShape.circle),
+              child: const Padding(
+                padding: EdgeInsets.all(30),
+                child: CircleAvatar(
+                  backgroundImage: AssetImage('images/moi.jpg'),
+                  radius: 150,
+                ),
+              ),
+            ),
+          ),
+        ));
   }
 }
-

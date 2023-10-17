@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hdev/src/features/contract/presentation/widgets/alert/alert.dart';
 import 'package:hdev/src/features/contract/presentation/widgets/mon_solde/cards/card_current_solde.dart';
 import 'package:hdev/src/features/contract/presentation/widgets/mon_solde/cards/card_payment_solde.dart';
 import 'package:hdev/src/features/contract/presentation/widgets/mon_solde/history_contract/history_contract.dart';
@@ -22,6 +23,8 @@ class MonSolde extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (contract != null) ...[
+                const SizedBox(height: 20),
+                Alert(),
                 const SizedBox(height: 50),
                 const HeaderSection(
                     title: 'Mon solde', dividerColor: Colors.amber),

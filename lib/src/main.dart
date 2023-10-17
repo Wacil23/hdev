@@ -11,19 +11,17 @@ import 'package:hdev/src/features/login/data/repository/authentication_repositor
 import 'package:hdev/src/features/login/domain/usecases/login_usecase.dart';
 import 'package:hdev/src/features/login/presentation/bloc/authentification/authentication_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+ WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   await AuthBox.initialize();
   final String? authToken = AuthBox.getToken();
-  final String? authFileToken = AuthBox.getFileToken();
-  print({'Token': authToken});
-  print({'TokenFile': authFileToken});
-  
   SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
   runApp(MyApp(authToken: authToken));
 }
+
 
 class MyApp extends StatelessWidget {
   final AppRouter _appRouter;
@@ -36,11 +34,11 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<AuthenticationBloc>(
-          create: (context) =>
+          create: (_) =>
               AuthenticationBloc(LoginUseCase(AuthenticationRepositoryImpl())),
         ),
         BlocProvider<HomeContractBloc>(
-          create: (context) => HomeContractBloc(GetContractsUseCase(
+          create: (_) => HomeContractBloc(GetContractsUseCase(
               GetContractsRepositoryImpl(
                   currentBailleurId: currentBailleurId))),
         ),

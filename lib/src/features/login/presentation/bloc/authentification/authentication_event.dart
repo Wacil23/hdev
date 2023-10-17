@@ -1,5 +1,7 @@
-abstract class AuthenticationEvent {}
-
+abstract class AuthenticationEvent {
+  @override
+  List<Object> get props => [];
+}
 
 //Reprensente les evenements liés à l'authentification (email, password)
 class AuthenticationSubmitEvent extends AuthenticationEvent {
@@ -11,8 +13,4 @@ class AuthenticationSubmitEvent extends AuthenticationEvent {
 
 class LogoutEvent extends AuthenticationEvent {
   LogoutEvent();
-}
-
-class CheckTokenEvent extends AuthenticationEvent {
-
 }

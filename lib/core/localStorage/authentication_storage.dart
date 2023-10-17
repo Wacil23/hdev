@@ -17,5 +17,6 @@ class AuthBox {
 
   static void removeToken() {
     _box?.delete('token');
-  } 
+  }
+
 }

@@ -1,27 +1,32 @@
 import 'package:dio/dio.dart';
 import 'package:hdev/core/constants/constants.dart';
 import 'package:hdev/core/localStorage/authentication_storage.dart';
-import 'package:hdev/core/resources/token_interceptor.dart';
+import 'package:hdev/core/resources/dio_api_interceptor.dart';
 
 class DioApiProvider {
   final Dio _dio;
-  final String currentBailleurId;
+  final String? currentBailleurId;
   final bool includeToken;
   final bool includeBailleur;
+  final bool overrideUrl;
 
-  DioApiProvider({required this.currentBailleurId, this.includeToken = false, this.includeBailleur = true})
-      : _dio = Dio(BaseOptions(baseUrl: apiBaseUrl)) {
-        
+  DioApiProvider(
+      {this.currentBailleurId,
+      this.includeToken = false,
+      this.includeBailleur = true,
+      this.overrideUrl = false})
+      : _dio = Dio(
+            BaseOptions(baseUrl: overrideUrl ? apiAuthPicture : apiBaseUrl)) {
     if (includeToken) {
       final String? token = AuthBox.getToken();
       if (token != null) {
-        _dio.interceptors.add(TokenInterceptor(
+        _dio.interceptors.add(DioApiInterceptor(
             currentBailleurId: currentBailleurId, token: token));
       }
     }
     if (includeBailleur) {
       _dio.interceptors
-          .add(TokenInterceptor(currentBailleurId: currentBailleurId));
+          .add(DioApiInterceptor(currentBailleurId: currentBailleurId));
     }
   }
 
@@ -38,10 +43,12 @@ class DioApiProvider {
     return response.data;
   }
 
-  Future<Map<String, dynamic>> post(String pathUrl,
-      {dynamic data,
-      Map<String, dynamic>? queryParams,
-      Options? options}) async {
+  Future<Map<String, dynamic>> post(
+    String pathUrl, {
+    dynamic data,
+    Map<String, dynamic>? queryParams,
+    Options? options,
+  }) async {
     Response response = await _dio.post(pathUrl,
         data: data, queryParameters: queryParams, options: options);
     return response.data;

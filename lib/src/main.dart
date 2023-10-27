@@ -17,6 +17,7 @@ Future<void> main() async {
   await Hive.initFlutter();
   await AuthBox.initialize();
   final String? authToken = AuthBox.getToken();
+  AuthBox.removeToken();
   SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(statusBarColor: Colors.transparent));
   runApp(MyApp(authToken: authToken));
@@ -44,7 +45,7 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-        theme: ThemeData(dividerColor: Colors.transparent),
+        theme: ThemeData(dividerColor: const Color.fromARGB(0, 255, 255, 255)),
         onGenerateRoute: _appRouter.onGenerateRoute,
         debugShowCheckedModeBanner: false,
       ),

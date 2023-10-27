@@ -17,8 +17,8 @@ class HomeContractBloc extends Bloc<HomeContractEvent, HomeContractState> {
     final dataState = await _getContractsUseCase();
 
     if (dataState is DataSuccess && dataState.data!.isSuccess) {
-      final contractsModel = ContractsModel.fromMap(dataState.data!.datas[0]);
-      emit(HomeContractDone(contractsModel));
+      final singleContract = ContractsModel.fromMap(dataState.data!.datas[0]);
+      emit(HomeContractDone(singleContract));
     }
 
     if (dataState is DataFailed) {

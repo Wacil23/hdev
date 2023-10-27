@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hdev/src/features/home/presentation/widgets/body/header/header_section.dart';
+import 'package:hdev/src/features/home/presentation/widgets/header/header_section.dart';
 
 class MesDemandesDintervenion extends StatelessWidget {
   const MesDemandesDintervenion({
@@ -19,7 +19,7 @@ class MesDemandesDintervenion extends StatelessWidget {
               ),
               HeaderSection(
                   title: 'Mes demandes d\'intervention',
-                  dividerColor: Colors.amber),
+                  ),
             ]),
       )
     ]);

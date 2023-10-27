@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hdev/src/features/home/presentation/bloc/actuality/actuality_bloc.dart';
 import 'package:hdev/src/features/home/presentation/bloc/actuality/actuality_event.dart';
 import 'package:hdev/src/features/home/presentation/bloc/actuality/actuality_state.dart';
-import 'package:hdev/src/features/home/presentation/widgets/body/header/header_section.dart';
+import 'package:hdev/src/features/home/presentation/widgets/header/header_section.dart';
 
 class ActualityCardSection extends StatelessWidget {
   final String title;
@@ -19,7 +19,6 @@ class ActualityCardSection extends StatelessWidget {
       children: [
         HeaderSection(
           title: title,
-          dividerColor: const Color.fromRGBO(20, 76, 151, 1),
         ),
         BlocBuilder<ActualityBloc, ActualityState>(
           builder: (context, state) {
@@ -32,7 +31,7 @@ class ActualityCardSection extends StatelessWidget {
                       const EdgeInsets.symmetric(horizontal: 15, vertical: 50),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
-                      color: const Color.fromARGB(255, 242, 242, 242)),
+                      color: Color.fromARGB(255, 255, 255, 255)),
                   child: Column(
                     children: [
                       Container(

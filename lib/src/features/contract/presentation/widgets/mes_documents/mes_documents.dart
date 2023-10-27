@@ -1,6 +1,5 @@
-
 import 'package:flutter/material.dart';
-import 'package:hdev/src/features/home/presentation/widgets/body/header/header_section.dart';
+import 'package:hdev/src/features/home/presentation/widgets/header/header_section.dart';
 
 class MesDocuments extends StatelessWidget {
   const MesDocuments({
@@ -18,7 +17,7 @@ class MesDocuments extends StatelessWidget {
             SizedBox(
               height: 50,
             ),
-            HeaderSection(title: 'Mes documents', dividerColor: Colors.amber),
+            HeaderSection(title: 'Mes documents'),
           ],
         ),
       )

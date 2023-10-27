@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hdev/src/features/home/presentation/pages/home/home.dart';
 import 'package:hdev/src/features/login/presentation/pages/login.dart';
 import 'package:hdev/src/features/login/presentation/widgets/home/welcome_text.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -56,7 +55,7 @@ class HomeLogin extends StatelessWidget {
                           borderRadius: const BorderRadius.only(
                               topLeft: Radius.circular(20),
                               topRight: Radius.circular(20)),
-                          color: const Color.fromRGBO(0, 173, 233, 1)),
+                          color: Color(0xFF004e9f)),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -67,7 +66,7 @@ class HomeLogin extends StatelessWidget {
                                   side: const BorderSide(
                                       width: 2, color: Colors.white),
                                   backgroundColor:
-                                      const Color.fromRGBO(0, 173, 233, 1),
+                                      Color(0xFF004e9f),
                                   padding: const EdgeInsets.all(15),
                                   elevation: 0),
                               child: Text('Se connecter',
@@ -101,7 +100,7 @@ class HomeLogin extends StatelessWidget {
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,
                                       color:
-                                          const Color.fromRGBO(0, 173, 233, 1))),
+                                          const Color(0xFF004e9f))),
                               onPressed: () => {null},
                             ),
                           ),
@@ -119,46 +118,5 @@ class HomeLogin extends StatelessWidget {
   }
 }
 
-class TitleSection extends StatelessWidget {
-  const TitleSection({
-    super.key,
-  });
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(top: 20),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text('Connexion',
-              style: GoogleFonts.montserrat(
-                fontSize: 50,
-                fontWeight: FontWeight.bold,
-                letterSpacing: -2,
-                color: const Color.fromRGBO(0, 79, 159, 1),
-              ))
-        ],
-      ),
-    );
-  }
-}
 
-class TextSection extends StatelessWidget {
-  const TextSection({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(top: 5, bottom: 20),
-      child: Text('Connectez vous à votre espace locataire',
-          style: GoogleFonts.montserrat(
-            fontSize: 15,
-            fontWeight: FontWeight.w600,
-            color: const Color.fromRGBO(0, 79, 159, 1),
-          )),
-    );
-  }
-}

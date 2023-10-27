@@ -1,25 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:hdev/src/features/home/presentation/bloc/contracts/contracts_bloc.dart';
 import 'package:hdev/src/features/home/presentation/bloc/contracts/contracts_event.dart';
 import 'package:hdev/src/features/home/presentation/bloc/contracts/contracts_state.dart';
-import 'package:hdev/src/features/home/presentation/widgets/body/header/header_section.dart';
 
 class CardContractSection extends StatelessWidget {
-  final String title;
-  const CardContractSection({super.key, required this.title});
+  const CardContractSection({super.key});
 
   @override
   Widget build(BuildContext context) {
     final homeContractBloc = BlocProvider.of<HomeContractBloc>(context);
     homeContractBloc.add(const GetContracts());
-    return Container(
-      child: Column(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        HeaderSection(
-          title: title,
-          dividerColor: Colors.amber,
+        const SizedBox(
+          height: 10,
         ),
         BlocBuilder<HomeContractBloc, HomeContractState>(
           builder: (_, state) {
@@ -29,7 +26,7 @@ class CardContractSection extends StatelessWidget {
                 child: Container(
                   width: double.infinity,
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 50),
+                      const EdgeInsets.symmetric(horizontal: 18, vertical: 50),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
                       color: const Color.fromARGB(255, 242, 242, 242)),
@@ -67,43 +64,41 @@ class CardContractSection extends StatelessWidget {
               );
             }
             if (state is HomeContractDone) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  GestureDetector(
-                    onTap: () {},
-                    child: Card(
-                      elevation: 2,
-                      clipBehavior: Clip.hardEdge,
-                      child: Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: Column(
-                          children: [
-                            _cardHeader(state),
-                            const SizedBox(height: 20),
-                            _cardMain(state),
-                            const SizedBox(height: 15),
-                            _cardPayment(state),
-                          ],
+              var list = [state.contract!.adresseBien].toList();
+              return SizedBox(
+                height: 80, 
+                child: ListView.builder(
+                  
+                  physics: BouncingScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 4,
+                  itemBuilder: (context, index) => Container(
+                      height: 80,
+                      width: 80,
+                      decoration: const BoxDecoration(
+                        color: Color.fromRGBO(0, 58, 119, 1),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(50),
                         ),
                       ),
+                      child: const Icon(
+                        Icons.home_work_rounded,
+                        color: Colors.white,
+                        size: 30,
+                      ),
                     ),
-                  ),
-                ],
+                ),
               );
             }
             return const SizedBox();
           },
         ),
       ],
-    ));
+    );
   }
 
   Column _cardMain(HomeContractState state) {
-    final String? priceToString = state.contracts?.soldeContrat.toString();
+    final String? priceToString = state.contract?.soldeContrat.toString();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -111,31 +106,37 @@ class CardContractSection extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            const Row(
+            Row(
               children: [
                 Text('Solde :',
-                    style:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                    style: GoogleFonts.poppins(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white)),
               ],
             ),
             Row(
               children: [
                 Text('$priceToString €',
-                    style: const TextStyle(
-                        fontSize: 23, fontWeight: FontWeight.bold)),
+                    style: GoogleFonts.poppins(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white)),
               ],
             ),
           ],
         ),
         const SizedBox(
-          height: 2,
+          height: 5,
         ),
-        const Text(
+        Text(
           'sous réserve de paiements en cours de traitement',
-          style: TextStyle(
-              color: Color.fromRGBO(102, 102, 118, 1),
-              fontStyle: FontStyle.italic,
-              fontSize: 13),
+          textAlign: TextAlign.center,
+          style: GoogleFonts.poppins(
+              fontSize: 15,
+              fontWeight: FontWeight.w400,
+              color: Colors.white,
+              letterSpacing: -0.2),
         ),
       ],
     );
@@ -143,22 +144,33 @@ class CardContractSection extends StatelessWidget {
 
   Row _cardHeader(HomeContractState state) {
     String? postalCodeNCity =
-        '${state.contracts?.codePostalBien} ${state.contracts?.villeBien}';
+        '${state.contract?.codePostalBien} ${state.contract?.villeBien}';
 
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Padding(
-              padding: EdgeInsets.only(right: 5.0),
-              child: Icon(Icons.file_copy, color: Colors.amber),
+            Container(
+              height: 40,
+              width: 40,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(50),
+                color: Color.fromRGBO(116, 159, 238, 1),
+              ),
+              child: const Icon(Icons.file_copy, color: Colors.white, size: 20),
+            ),
+            const SizedBox(
+              width: 10,
             ),
             Text(
-              state.contracts!.numContrat,
-              style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+              state.contract!.numContrat,
+              style: GoogleFonts.poppins(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white),
             ),
           ],
         ),
@@ -168,45 +180,25 @@ class CardContractSection extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Text(
-                  state.contracts!.adresseBien,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.w500, fontSize: 13),
+                  state.contract!.adresseBien,
+                  style: GoogleFonts.poppins(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                      letterSpacing: -0.2),
                 ),
                 Text(
                   postalCodeNCity,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.w500, fontSize: 13),
+                  style: GoogleFonts.poppins(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                      letterSpacing: -0.2),
                 ),
               ],
             ),
           ],
         )
-      ],
-    );
-  }
-
-  Row _cardPayment(HomeContractState state) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(0),
-              child: Row(
-                children: [
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: const ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll(
-                            Color.fromRGBO(126, 161, 26, 1))),
-                    child: const Text('Effectuer un paiement'),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
       ],
     );
   }

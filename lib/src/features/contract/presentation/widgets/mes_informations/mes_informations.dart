@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hdev/src/features/home/presentation/widgets/body/header/header_section.dart';
+import 'package:hdev/src/features/home/presentation/widgets/header/header_section.dart';
 
 class MesInformations extends StatelessWidget {
   const MesInformations({
@@ -18,7 +18,7 @@ class MesInformations extends StatelessWidget {
               height: 50,
             ),
             HeaderSection(
-                title: 'Mes informations', dividerColor: Colors.amber),
+                title: 'Mes informations',),
           ],
         ),
       )

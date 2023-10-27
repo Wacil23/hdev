@@ -79,7 +79,7 @@ class FormLogin extends StatelessWidget {
   ElevatedButton _buildLoginButton(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        backgroundColor:  const Color.fromRGBO(0, 173, 233, 1),
+        backgroundColor:  const Color(0xFF004e9f),
         padding: const EdgeInsets.only(top: 16, bottom: 16),
       ),
       onPressed: () {

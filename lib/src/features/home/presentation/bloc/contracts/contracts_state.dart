@@ -3,12 +3,12 @@ import 'package:hdev/src/features/home/data/models/contracts_model.dart';
 import 'package:hdev/core/model/api_response.dart';
 
 abstract class HomeContractState extends Equatable {
-  final ContractsModel? contracts;
+  final ContractsModel? contract;
   final ApiResponseModel ? errors;
-  const HomeContractState({this.contracts, this.errors});
+  const HomeContractState({this.errors, this.contract});
 
   @override
-  List<Object?> get props => [contracts, errors];
+  List<Object?> get props => [errors, contract];
 }
 
 class HomeContractLoading extends HomeContractState {
@@ -17,7 +17,7 @@ class HomeContractLoading extends HomeContractState {
 
 class HomeContractDone extends HomeContractState {
   const HomeContractDone(contract)
-      : super(contracts: contract);
+      : super(contract: contract);
 }
 
 class HomeContractError extends HomeContractState {
